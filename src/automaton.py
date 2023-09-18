@@ -29,5 +29,28 @@ class Automaton:
     for node in self.nodes:
       print(node.getNode())
   
+  def simulate(self, input: str) -> bool:
+    node = self.nodes[0]
+
+    while len(node.next) > 0:
+      for idx, char in enumerate(input):
+        valid = False
+
+        if idx == 0:
+          if node.label == char:
+            valid = True
+            continue
+          return False
+
+        for nd in node.next:
+          if nd.label == char:
+            valid = True
+            node = nd
+            break
+        if valid == False: return False
+    return True
+        
+        
+
 
 

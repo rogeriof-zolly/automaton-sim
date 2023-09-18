@@ -39,3 +39,30 @@ class TestAutomatonMethods(unittest.TestCase):
     with self.assertRaises(ValueError):
       automaton.removeNode()
 
+class TestSimulationMethods(unittest.TestCase):
+  
+  def test_valid_no_pile_simulation(self):
+    automaton = Automaton("a")
+    automaton.addNode("b")
+    automaton.addNode("c")
+    self.assertTrue(automaton.simulate("abc"))
+
+  def test_invalid_no_pile_simulation(self):
+    automaton = Automaton("a")
+    automaton.addNode("b")
+    automaton.addNode("c")
+    self.assertFalse(automaton.simulate("cbc"))
+
+  def test_invalid_greater_no_pile_simulation(self):
+    automaton = Automaton("a")
+    automaton.addNode("b")
+    automaton.addNode("c")
+    self.assertFalse(automaton.simulate("abcc"))
+
+  def test_invalid_lesser_no_pile_simulation(self):
+    automaton = Automaton("a")
+    automaton.addNode("b")
+    automaton.addNode("c")
+    self.assertFalse(automaton.simulate("ab"))
+    
+
