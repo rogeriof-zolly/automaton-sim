@@ -1,14 +1,14 @@
 from typing import List
-from .node import Node
+from node import Node
 
 class Automaton:
 
   def __init__(self, firstNodeLabel):
-    self.nodes:List[Node] = [Node(firstNodeLabel, None)]
+    self.nodes:List[Node] = [Node(firstNodeLabel, None, None)]
     self.workingNode = self.nodes[0]
 
   def addNode(self, newNodeLabel):
-    newNode = Node(newNodeLabel, self.workingNode)
+    newNode = Node(newNodeLabel, self.workingNode, None)
     self.nodes.append(newNode)
     self.workingNode.next.append(newNode)
     self.workingNode = self.nodes[-1]
@@ -32,10 +32,14 @@ class Automaton:
   def simulate(self, input: str) -> bool:
     node = self.nodes[0]
 
+    if len(input) == 1:
+      if node.label == input:
+        return True
+      return False
+
     while len(node.next) > 0:
       for idx, char in enumerate(input):
         valid = False
-
         if idx == 0:
           if node.label == char:
             valid = True

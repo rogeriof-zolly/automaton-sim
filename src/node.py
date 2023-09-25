@@ -3,11 +3,12 @@ import uuid
 
 class Node:
 
-  def __init__(self, label, parentNode):
+  def __init__(self, label, parentNode, executionRule):
     self.id = uuid.uuid4()
     self.label = label
     self.parentNodes: List[Node] = [parentNode]
     self.next: List[Node] = []
+    self.transationRule = executionRule
 
   def getNode(self):
     return {
