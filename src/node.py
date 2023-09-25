@@ -8,7 +8,7 @@ class Node:
     self.label = label
     self.parentNodes: List[Node] = [parentNode]
     self.next: List[Node] = []
-    self.transationRule = executionRule
+    self.transactionRule = executionRule
 
   def getNode(self):
     return {

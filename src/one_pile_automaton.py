@@ -16,7 +16,7 @@ class OnePileAutomaton(Automaton):
     self.workingNode.next.append(newNode)
     self.workingNode = self.nodes[-1]
 
-  def handleTransation(self, executionRule):
+  def handleTransaction(self, executionRule):
     print("---------------------------------")
     if executionRule["readPileOne"] != "e":
       try:
@@ -39,32 +39,23 @@ class OnePileAutomaton(Automaton):
     print("----------INICIANDO SIMULAÇÃO----------")
     currentNode = self.nodes[0]
 
-    for char in input:
-      found = False
-      
-      if char == currentNode.transationRule["label"]:
-        found = True
-        if(self.handleTransation(currentNode.transationRule) == False):
-          return False
+    i=0
+    
+    while(i < len(input)):
+      if input[i] == currentNode.transactionRule["label"]:
+        self.handleTransaction(currentNode.transactionRule)
+        i += 1
         continue
-      
-      while len(currentNode.next) > 0:
-        for node in currentNode.next:
-          if node.transationRule["label"] != char:
-            continue
-          
-          found = True
-          if(self.handleTransation(node.transationRule) == False):
-            return False
+
+      for node in currentNode.next:
+        if input[i] == node.transactionRule["label"]:
           currentNode = node
-
-      if found == False:
-        return False
-
-    if 0 == len(self.pileOne):
-      return True
-
-    return False
+          break
+    
+    return self.validatePilesAreEmpty()
+  
+  def validatePilesAreEmpty(self):
+    return 0 == len(self.pileOne)
   
   @staticmethod
   def createTransationRule(transationLabel, read1, record1) -> dict:

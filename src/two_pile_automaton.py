@@ -6,8 +6,8 @@ class TwoPileAutomaton(OnePileAutomaton):
     super().__init__(firstNodeLabel, firstNodeExecutionRule)
     self.pileTwo = []
 
-  def handleTransation(self, executionRule):
-    pileOneActions = super().handleTransation(executionRule)
+  def handleTransaction(self, executionRule):
+    pileOneActions = super().handleTransaction(executionRule)
 
     if(pileOneActions == False):
       return False
@@ -27,42 +27,9 @@ class TwoPileAutomaton(OnePileAutomaton):
 
     print("Pilha 2:", self.pileTwo)
     return True
-
-  def simulate(self, input: str) -> bool:
-    print("----------INICIANDO SIMULAÇÃO----------")
-    currentNode = self.nodes[0]
-
-    for char in input:
-      found = False
-
-      if char == currentNode.transationRule["label"]:
-        found = True
-        if(self.handleTransation(currentNode.transationRule) == False):
-          return False
-        continue
-      
-      while len(currentNode.next) > 0:
-        for node in currentNode.next:
-          if node.transationRule["label"] != char:
-            continue
-
-          found = True
-          if(self.handleTransation(node.transationRule) == False):
-            return False
-          currentNode = node
-          break
-        
-        if found == True:
-          break
-
-      if found == False:
-        return False
-
-    if 0 == len(self.pileOne) == len(self.pileTwo):
-      return True
-
-    return False
-    
+  
+  def validatePilesAreEmpty(self):
+    return 0 == len(self.pileOne) == len(self.pileTwo)
   
   @staticmethod
   def createTransationRule(transationLabel, read1, record1, read2, record2) -> dict:
