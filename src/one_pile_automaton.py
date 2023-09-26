@@ -19,12 +19,14 @@ class OnePileAutomaton(Automaton):
   def handleTransaction(self, executionRule):
     print("---------------------------------")
     if executionRule["readPileOne"] != "e":
+      print(f'{executionRule["readPileOne"]}')
       try:
         if self.pileOne[-1] == executionRule["readPileOne"]:
+          print(f'{executionRule["readPileOne"]}')
           print("leu da pilha 1:", executionRule["readPileOne"])
           self.pileOne.pop()
         else:
-          raise ValueError("Erro de programação da pilha, valor inesperado")
+          return False
       except:
         return False
 
@@ -40,10 +42,11 @@ class OnePileAutomaton(Automaton):
     currentNode = self.nodes[0]
 
     i=0
-    
+
     while(i < len(input)):
       if input[i] == currentNode.transactionRule["label"]:
-        self.handleTransaction(currentNode.transactionRule)
+        if self.handleTransaction(currentNode.transactionRule) == False:
+          return False
         i += 1
         continue
 
@@ -56,7 +59,7 @@ class OnePileAutomaton(Automaton):
   
   def validatePilesAreEmpty(self):
     return 0 == len(self.pileOne)
-  
+   
   @staticmethod
   def createTransationRule(transationLabel, read1, record1) -> dict:
     return {

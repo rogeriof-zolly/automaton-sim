@@ -1,11 +1,13 @@
-from automaton import Automaton
-from helpers import clear
+from helpers import clear, createOnePileTransaction, createTwoPileTransaction
+from two_pile_automaton import TwoPileAutomaton
+
 
 @staticmethod
-def no_pile_menu_options():
+def two_pile_menu_options():
   print("Você escolheu criar um autômato sem pilhas")
   firstNodeLabel:str = input("Defina com uma letra o label do primeiro nó: ")
-  automaton = Automaton(firstNodeLabel)
+  transactionRules = createTwoPileTransaction()
+  automaton = TwoPileAutomaton(firstNodeLabel, transactionRules)
   print("Autômato criado!")
   while(True):
     clear()
@@ -21,7 +23,8 @@ def no_pile_menu_options():
     match opc:
       case 1:
         newNodeLabel = input("Digite a label do novo nó: ")
-        automaton.addNode(newNodeLabel)
+        newNodeTransactionRules = createTwoPileTransaction()
+        automaton.addNode(newNodeLabel, newNodeTransactionRules)
       case 2:
         automaton.removeNode()
       case 3:
