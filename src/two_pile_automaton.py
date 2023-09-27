@@ -17,9 +17,7 @@ class TwoPileAutomaton(OnePileAutomaton):
         if self.pileTwo[-1] == executionRule["readPileTwo"]:
           print("leu da pilha 2:", executionRule["readPileTwo"])
           self.pileTwo.pop()
-        else:
-          raise ValueError("Erro de programação da pilha, valor inesperado")
-      except:
+      except IndexError:
         return False
 
     if executionRule["recordPileTwo"] != "e":

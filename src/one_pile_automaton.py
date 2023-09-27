@@ -25,9 +25,7 @@ class OnePileAutomaton(Automaton):
           print(f'{executionRule["readPileOne"]}')
           print("leu da pilha 1:", executionRule["readPileOne"])
           self.pileOne.pop()
-        else:
-          return False
-      except:
+      except IndexError:
         return False
 
     if executionRule["recordPileOne"] != "e":
