@@ -11,9 +11,18 @@ class Node:
     self.transactionRule = executionRule
 
   def getNode(self):
+    if isinstance(self.transactionRule, dict):
+      transaction = "("
+      for value in self.transactionRule.values():
+        transaction += value + ','
+      transaction = transaction.rstrip(transaction[-1])
+      transaction += ")"
+    else:
+      transaction = None
+
+
     return {
       "id": self.id,
       "label": self.label,
-      "parentNodes": self.parentNodes,
-      "next": self.next
+      "transactionRule": transaction
     }

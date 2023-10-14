@@ -15,29 +15,12 @@ class OnePileAutomaton(Automaton):
     self.nodes.append(newNode)
     self.workingNode.next.append(newNode)
     self.workingNode = self.nodes[-1]
-
-  def handleTransaction(self, executionRule):
-    print("---------------------------------")
-    if executionRule["readPileOne"] != "e":
-      print(f'{executionRule["readPileOne"]}')
-      try:
-        if self.pileOne[-1] == executionRule["readPileOne"]:
-          print(f'{executionRule["readPileOne"]}')
-          print("leu da pilha 1:", executionRule["readPileOne"])
-          self.pileOne.pop()
-      except IndexError:
-        return False
-
-    if executionRule["recordPileOne"] != "e":
-      print("gravou na pilha 1:", executionRule["recordPileOne"])
-      self.pileOne.append(executionRule["recordPileOne"])
-
-    print("Pilha 1:", self.pileOne)
-    return True
-
+  
   def simulate(self, input: str) -> bool:
     print("----------INICIANDO SIMULAÇÃO----------")
     currentNode = self.nodes[0]
+
+    self.pileOne = []
 
     i=0
 
@@ -57,6 +40,25 @@ class OnePileAutomaton(Automaton):
   
   def validatePilesAreEmpty(self):
     return 0 == len(self.pileOne)
+
+  def handleTransaction(self, executionRule):
+    print("---------------------------------")
+    if executionRule["readPileOne"] != "e":
+      print(f'{executionRule["readPileOne"]}')
+      try:
+        if self.pileOne[-1] == executionRule["readPileOne"]:
+          print("leu da pilha 1:", executionRule["readPileOne"])
+          self.pileOne.pop()
+      except IndexError:
+        return False
+
+    if executionRule["recordPileOne"] != "e":
+      print("gravou na pilha 1:", executionRule["recordPileOne"])
+      self.pileOne.append(executionRule["recordPileOne"])
+
+    print("Pilha 1:", self.pileOne)
+    return True
+
    
   @staticmethod
   def createTransationRule(transationLabel, read1, record1) -> dict:

@@ -26,6 +26,7 @@ def no_pile_menu_options():
         automaton.removeNode()
       case 3:
         print(automaton.workingNode.getNode())
+        input("Pressione Enter para continuar...")
       case 4:
         entrada = input("Digite a string de entrada para validação: ")
         resultado = automaton.simulate(entrada)
